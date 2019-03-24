@@ -1,12 +1,11 @@
 
-class PossibilitySet:
+# the measure list in this excercise equals the an m, so m1 for the FOB (Stirnfalte)
+class BasisMeasure:
     def __init__(self):
-        #size of list
         self.size = 0
-        # list of entries
         self.entrylist = []
-        # location of omega thingy
-        self.omega = 1
+        # do we need this?
+        self.omegaposition = 0
 
     def add_entry(self):
         # Add an entry for the Measure by submitting the entry-values and the probability of the entry
