@@ -1,9 +1,10 @@
 
-class PossibilitySet:
+# the possibility list in this use case is a list of all possible emotions, equals omega
+class BasisMeasure:
     def __init__(self):
         #size of list
         self.size = 0
-        # list of entries
+        # list of Entries (see class entries)
         self.entrylist = []
         # location of omega thingy
         self.omega = 1
