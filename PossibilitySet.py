@@ -1,3 +1,4 @@
+
 class PossibilitySet:
     def __init__(self):
         #size of list
