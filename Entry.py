@@ -1,18 +1,17 @@
 class Entry:
-    def __init__(self, values):
+    def __init__(self, values, prob):
         self.size = 0
         self.values = values
-        self.probability = 0
+        self.probability = prob
 
     def get_values(self):
         return self.values
 
-    # def get_probability(self):
-    #     # returns probability of that entry
-    #     return 0
-    #
-    # def set_values(self):
-    #     # sets values of that entry
-    #
-    # def set_probability(self):
-    #     # sets probability of that entry
+    def get_probability(self):
+        return self.probability
+
+    def set_values(self, values):
+        self.values = values
+
+    def set_probability(self, prob):
+        self.probability = prob
