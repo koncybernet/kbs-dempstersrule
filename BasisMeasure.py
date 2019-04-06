@@ -9,6 +9,7 @@ class BasisMeasure:
 
     def add_entry(self):
         # Add an entry for the Measure by submitting the entry-values and the probability of the entry
+        return 0
 
     def get_entries(self):
         # returns all list entries
