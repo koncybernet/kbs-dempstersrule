@@ -1,18 +1,16 @@
-from table_lookups import size_to_emotion
+class Entry:
+    def __init__(self, values, prob):
+        self.values = values
+        self.probability = prob
 
-# the measure list in this excercise equals the an m, so m1 for the FOB (Stirnfalte)
-class BasisMeasure:
-    def __init__(self, feature, size):
-        if feature or size is None:
-            self.entrylist = []
-        else:
-            self.entrylist = []
-            # get list of emotions from lookup
-            # append list of emotions with prob
-            # append omegaobject with 1 - prob
+    def get_values(self):
+        return self.values
 
-    def add_entry(self, entry):
-        self.entrylist.append(entry)
+    def get_probability(self):
+        return self.probability
 
-    def get_entries(self):
-        return self.entrylist
+    def set_values(self, values):
+        self.values = values
+
+    def set_probability(self, prob):
+        self.probability = prob

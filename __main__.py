@@ -1,4 +1,4 @@
-from BasisMeasure import BasisMeasure
+from Evidence import BasisMeasure
 
 # print("Hello world!")
 # f = open("dataset/emo_muster_2_1.csv", "r")

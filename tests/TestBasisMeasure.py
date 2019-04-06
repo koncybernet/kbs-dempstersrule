@@ -1,4 +1,4 @@
-from BasisMeasure import BasisMeasure
+from Evidence import BasisMeasure
 
 entry = 'test'
 
