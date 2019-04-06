@@ -1,11 +1,10 @@
 
 # the measure list in this excercise equals the an m, so m1 for the FOB (Stirnfalte)
 class BasisMeasure:
-    def __init__(self):
-        self.size = 0
+    def __init__(self, feature, size):
+        self.size = size
+        self.feature = feature
         self.entrylist = []
-        # do we need this?
-        self.omegaposition = 0
 
     def add_entry(self):
         # Add an entry for the Measure by submitting the entry-values and the probability of the entry
