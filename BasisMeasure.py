@@ -1,4 +1,4 @@
-class Entry:
+class BasisMeasure:
     def __init__(self, values, prob):
         self.values = values
         self.probability = prob
