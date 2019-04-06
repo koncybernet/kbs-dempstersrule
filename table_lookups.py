@@ -1,3 +1,12 @@
+# numbers -> sizes
+# fob s: <30000
+# rea/lea m: 19-24
+# rbd/lbd m: 19-23
+# hnc s: 5-6
+# vnc s: 2-3
+# lcw/rcw s: 9-10
+
+
 def size_to_emotion():
     table = {
         'fob': {
