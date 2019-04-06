@@ -1,6 +1,5 @@
 class Entry:
     def __init__(self, values, prob):
-        self.size = 0
         self.values = values
         self.probability = prob
 
