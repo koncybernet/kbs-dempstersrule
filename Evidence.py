@@ -16,3 +16,6 @@ class Evidence:
 
     def get_entries(self):
         return self.entrylist
+
+    def delete_entry(self, index):
+        self.entrylist.remove(index)
