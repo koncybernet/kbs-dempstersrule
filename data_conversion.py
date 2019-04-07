@@ -76,7 +76,7 @@ def number_to_size(numbers):
     normalized_numbers = {}
 
     # for all values in line of numbers lookup trait, normalize its number and store it in object
-    for i in range(5, 14):
+    for i in range(5, 15):
         trait = lookup_trait_by_index(i)
         normalized_numbers[trait] = normalize_number(i, numbers[4], numbers[i], trait)
 
