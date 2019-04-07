@@ -11,6 +11,7 @@ ev6.add_entry(BasisMeasure(['fear', 'sorrow', 'joy'], 0.8))
 ev6.add_entry(BasisMeasure(['omega'], 0.2))
 demp3 = DempsterRule(ev6, ev5)
 
+# test if output evidence is calculated correctly
 def test_calc_demp():
     ev1 = Evidence(None, None)
     ev1.add_entry(BasisMeasure(['anger', 'joy'], 0.7))
@@ -23,6 +24,7 @@ def test_calc_demp():
                  BasisMeasure(['sadness', 'joy'], 0.12), BasisMeasure(['omega'], 0.18)]
     assert demp1.get_output().get_entries()[3].get_probability() == expected1[3].get_probability()
 
+# test if refactoring is done when an output basis measure is empty
 def test_calc_empty():
     ev3 = Evidence(None, None)
     ev3.add_entry(BasisMeasure(['joy'], 0.7))
@@ -35,17 +37,20 @@ def test_calc_empty():
                  BasisMeasure(['omega'], 0.20689655)]
     assert round(demp2.get_output().get_entries()[0].get_probability(), 5) == round(expected2[0].get_probability(), 5)
 
+# test if two basismeasures with same content are added together
 def test_calc_unification():
     expected = [BasisMeasure(['joy'], 0.72), BasisMeasure(['fear', 'sorrow', 'joy'], 0.08),
                  BasisMeasure(['anger', 'joy'], 0.1), BasisMeasure(['disgust', 'joy'], 0.08), BasisMeasure(['omega'], 0.02)]
     assert round(demp3.get_output().get_entries()[1].get_probability(), 5) == round(expected[1].get_probability(), 5)
 
+# test if plausibility is calculated correctly
 def test_calc_plausibility():
     expected = [['joy', 0.98], ['fear', 0.08], ['sorrow', 0.08], ['anger', 0.1], ['disgust', 0.08]]
     # expected with omega:
     # expected3 = [['joy', 1], ['fear', 0.1], ['sorrow', 0.1], ['anger', 0.12], ['disgust', 0.1]]
     assert all(demp3.cal_plausibility()) == all(expected)
 
+# test if belief is calculated correctly
 def test_calc_belief():
     expected = [['joy', 0.72], ['fear', 0], ['sorrow', 0], ['anger', 0], ['disgust', 0]]
     assert all(demp3.cal_belief()) == all(expected)
