@@ -65,7 +65,7 @@ def size_to_emotion(size_object):
         emotions = list(emotions)
         result[trait] = {}
         result[trait]['emotions'] = emotions
-        result[trait]['value'] = len(emotions) / (5 - len(emotions))
+        result[trait]['value'] = round(len(emotions) / (5 - len(emotions)), 5)
 
     return(result)
 
@@ -76,9 +76,9 @@ def number_to_size(numbers):
     normalized_numbers = {}
 
     # for all values in line of numbers lookup trait, normalize its number and store it in object
-    for i in range(5, 14):
+    for i in range(5, 15):
         trait = lookup_trait_by_index(i)
-        normalized_numbers[trait] = normalize_number(i, numbers[4], numbers[i], trait)
+        normalized_numbers[trait] = normalize_number(numbers[4], numbers[i], trait)
 
 
     result = {}
@@ -147,15 +147,15 @@ def number_to_size_table_lookup(trait, value):
     # check number for size and return it
     if size_table[trait]['s'][0] <= value and size_table[trait]['s'][1] > value:
         return('s')
-    elif size_table[trait]['m'][0] <= value and size_table[trait]['s'][1] > value:
+    elif size_table[trait]['m'][0] <= value and size_table[trait]['m'][1] > value:
         return('m')
     else:
         return('l') 
 
 
-# takes an index according to the line of numbers, the height of the current frame, the trait value and the trait
+# takes the height of the current frame, the trait value and the trait
 # returns a normalized number
-def normalize_number(i, y, number, trait):
+def normalize_number(y, number, trait):
     # multiplier to get integers that are separable by rounding
     trait_multiplier_table = {
         'fob': 1,
