@@ -54,23 +54,20 @@ def size_to_emotion(size_object):
         }
     }
 
-    # sets can not contain duplicates as opposed to lists
-    emotions = set(())
-
-    # store all valid emotions in set
-    for trait in size_object:
-        emotions.update(table[trait][size_object[trait]])
-
-    # result object
+     # result object
     result = {}
 
-    # store all valid emotions and their value in result object
-    result['emotions'] = emotions
-    result['value'] = len(emotions) / (5 - len(emotions))
+    # sets cannot contain duplicates as opposed to lists
+    # store all valid emotions in set
+    for trait in size_object:
+        emotions = set(())
+        emotions.update(table[trait][size_object[trait]])
+        emotions = list(emotions)
+        result[trait] = {}
+        result[trait]['emotions'] = emotions
+        result[trait]['value'] = len(emotions) / (5 - len(emotions))
 
-    print(result)
     return(result)
-
 
 
 # takes one line of numbers (extracted from csv) and return an object with a mapping of trait -> size
@@ -88,6 +85,8 @@ def number_to_size(numbers):
     # for every trait, lookup its size and add it to the result object
     for trait in normalized_numbers:
         result[trait] = number_to_size_table_lookup(trait, normalized_numbers[trait])
+
+    return(result)
     
 
 # takes a trait and its value and returns the size
@@ -147,11 +146,11 @@ def number_to_size_table_lookup(trait, value):
 
     # check number for size and return it
     if size_table[trait]['s'][0] <= value and size_table[trait]['s'][1] > value:
-        return 's'
+        return('s')
     elif size_table[trait]['m'][0] <= value and size_table[trait]['s'][1] > value:
-        return 'm'
+        return('m')
     else:
-        return 'l' 
+        return('l') 
 
 
 # takes an index according to the line of numbers, the height of the current frame, the trait value and the trait
@@ -172,7 +171,7 @@ def normalize_number(i, y, number, trait):
     }
 
     # normalize number with frame height, include multiplier for trait and round to next integer
-    normalized_number = round((number / y) * trait_multiplier_table[trait])
+    normalized_number = round((int(number) / int(y)) * int(trait_multiplier_table[trait]))
     return(normalized_number)
 
 
