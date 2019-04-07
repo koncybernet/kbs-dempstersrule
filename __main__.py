@@ -1,36 +1,46 @@
+import os
+import data_conversion
 from Evidence import Evidence
-
-# print("Hello world!")
-# f = open("dataset/emo_muster_2_1.csv", "r")
-# f.readline()
-# print(f.readline())
-
-# kriegen die daten aus csv - done
-
-# test = {'fob': 29930, 'lea': 24, 'lbd': 22, 'rea':22, 'rbd': 21, 'hnc': 5, 'vnc': 3, 'lcw': 10, 'rcw': 10, 'ma': 84}
-input = {'stirnfalten': 's', 'augenoeffnung': 'm', 'brauenabstand': 'm', 'nasenfalten': 's', 'wangenfalten': 's'}
-
-list = []
-
-list.append(BasisMeasure('stirnfalten', input['stirnfalten']))
-list.append(BasisMeasure('augenoeffnung', input['augenoeffnung']))
-list.append(BasisMeasure('brauenabstand', input['brauenabstand']))
-list.append(BasisMeasure('nasenfalten', input['nasenfalten']))
-list.append(BasisMeasure('wangenfalten', input['wangenfalten']))
-
-print(list)
-
-# TODO: beispielobject konstruieren, inhalt ist emotion
-# TODO get possible emotions and construct list
-# TODO: akkumulieren
-# TODO: dingsi berechnen
+from DempsterRule import DempsterRule
+# for missing feature: feature not in object -> no Evidence for it
 
 
+# TODO: prompt for input file
+# file_name = input('Please enter the file name: ')
+file_name = 'emo_muster_2_1.csv'
+BASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dataset', file_name)
+# TODO: read input file
+file = open(BASE_PATH)
+file.readline()
 
-# main handles the entire flow of the program
-# starts reading the file(s) -> could be outsourced later [REFACTORING]
-# handles the numbers -> probabilities
-# handles algorithm
-# handles output
+# TODO: create for loop for every line
+for line in file:
+    line = file.readline()
+    # TODO: data conversion
+    sizes = data_conversion.number_to_size(line.strip().split(';'))
+    emotions = data_conversion.size_to_emotion(sizes)
+    print(emotions)
 
-# "handles" means it calls the functions/ methods etc
+    # TODO: create Evidence for every feature and store in list, implement Evidence constructor
+    base_evidences = []
+    for feature in emotions:
+        base_evidences.append(Evidence(emotions[feature]['emotions'], emotions[feature]['value']))
+
+    # TODO: accumulate by using helper variable ('final')
+    if len(base_evidences) < 2:
+        raise ValueError('there are not enough features to do a proper anaylsis.')
+    final = DempsterRule(base_evidences[0], base_evidences[1]).get_output()
+    if len(base_evidences) > 2:
+        for x in range(2, len(base_evidences)):
+            final = DempsterRule(final, base_evidences[x]).get_output()
+
+    # TODO: final.get_plausability()
+    emotion_list = final.cal_plausibility()
+    belief_list = final.cal_belief()
+    print(emotion_list)
+    print(belief_list)
+
+    # TODO: get highest plausability = output
+    # [TODO: belief]
+    # TODO: write emotion and plausibility for frame into file/ output
+
