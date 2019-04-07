@@ -70,3 +70,37 @@ class DempsterRule:
 
     def get_output(self):
         return self.evout
+
+    def cal_plausibility(self):
+        # TODO wird Omega miteinberechnet?
+        all_emotions = []
+        output = []
+        for x in self.evout.get_entries():
+            for y in x.get_values():
+                if y not in all_emotions:
+                    all_emotions.append(y)
+        all_emotions.remove('omega')
+        for e in all_emotions:
+            plausibility = 0
+            for f in self.evout.get_entries():
+                for g in f.get_values():
+                    if e in g:
+                        plausibility += f.get_probability()
+            output.append([e, plausibility])
+        return output
+
+    def cal_belief(self):
+        all_emotions = []
+        output = []
+        for x in self.evout.get_entries():
+            for y in x.get_values():
+                if y not in all_emotions:
+                    all_emotions.append(y)
+        all_emotions.remove('omega')
+        for e in all_emotions:
+            belief = 0
+            for f in self.evout.get_entries():
+                if [e] == f:
+                    belief += f.get_probability()
+            output.append([e, belief])
+        return output
