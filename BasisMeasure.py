@@ -1,3 +1,5 @@
+# Basis Measure class to implement one 'Entry' in the Evidence list.
+
 class BasisMeasure:
     def __init__(self, values, prob):
         self.values = values
