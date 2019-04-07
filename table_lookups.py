@@ -1,33 +1,94 @@
-def size_to_emotion():
+def size_to_emotion(size_object):
+    # example input: {
+    #   'fob': 's',
+    #   'lea': 'm',
+    #   'rea': 'm',
+    #   ...
+    # }
+
+    # table to look up traits
     table = {
         'fob': {
-            's': ['joy1', 'joy2', 'anger1', 'anger2', 'disgust1', 'disgust2', 'disdain1', 'disdain2'],
-            'm': ['surprise', 'anger1', 'disgust1', 'disgust2', 'fear1', 'fear2', 'sorrow1', 'sorrow2', 'disdain1', 'disdain2'],
-            'l': ['surprise', 'fear1', 'fear2', 'sorrow1', 'sorrow2']
+            's': ['neutral', 'disgust'],
+            'm': ['joy'],
+            'l': ['sorrow', 'fear']
         },
         'lea': {
-            's': ['joy1', 'joy2', 'disgust1', 'disgust2', 'sorrow1', 'sorrow2', 'disdain2'],
-            'm': ['joy1', 'joy2', 'anger1', 'anger2', 'disgust1', 'sorrow1', 'disdain1'],
-            'l': ['surprise', 'anger1', 'anger2', 'fear1', 'fear2']
+            's': ['sorrow', 'disgust'],
+            'm': ['neutral', 'sorrow'],
+            'l': ['fear', 'joy']
         },
         'lbd': {
-            's': ['anger1', 'anger2', 'disgust2', 'sorrow1', 'sorrow2'],
-            'm': ['joy1', 'joy2', 'disgust1', 'disgust2', 'sorrow1', 'disdain1', 'disdain2'],
-            'l': ['surprise', 'fear1', 'fear2']
+            's': ['disgust'],
+            'm': ['neutral', 'sorrow'],
+            'l': ['fear', 'joy']
         },
         'rea': {
-            's': ['joy1', 'joy2', 'disgust1', 'disgust2', 'sorrow1', 'sorrow2', 'disdain1'],
-            'm': ['joy1', 'joy2', 'anger1', 'anger2', 'disgust1', 'sorrow1', 'disdain2'],
-            'l': ['surprise', 'anger1', 'anger2', 'fear1', 'fear2']
+            's': ['sorrow', 'disgust'],
+            'm': ['neutral', 'sorrow'],
+            'l': ['fear', 'joy']
         },
         'rbd': {
-            's': ['anger1', 'anger2', 'disgust2', 'sorrow1', 'sorrow2'],
-            'm': ['joy1', 'joy2', 'disgust1', 'disgust2', 'sorrow1', 'disdain1', 'disdain2'],
-            'l': ['surprise', 'fear1', 'fear2']
+            's': ['disgust'],
+            'm': ['neutral', 'sorrow'],
+            'l': ['fear', 'joy']
         },
-        'til': {
-            's': ['joy1', 'joy2', 'surprise', 'anger1', 'anger2', 'disgust1', 'disgust2', 'fear1', 'fear2', 'sorrow1', 'sorrow2', 'disdain1', 'disdain2'],
-            'm': ['disgust1', 'disgust2', 'disdain1', 'disdain2'],
+        'hnc': {
+            's': [],
+            'm': [],
+            'l': ['fear']
+        },
+        'vnc': {
+            's': [],
+            'm': [],
             'l': []
+        },
+        'lcw': {
+            's': ['sorrow'],
+            'm': ['sorrow', 'joy', 'disgust'],
+            'l': ['joy']
+        },
+        'rcw': {
+            's': ['sorrow'],
+            'm': ['sorrow', 'joy', 'disgust'],
+            'l': ['joy']
+        },
+        'ma': {
+            's': [],
+            'm': [],
+            'l': ['fear']
         }
     }
+
+    # sets can not contain duplicates as opposed to lists
+    emotions = set(())
+
+    # store all valid emotions in set
+    for trait in size_object:
+        emotions.update(table[trait][size_object[trait]])
+
+    # result object
+    result = {}
+
+    # store all valid emotions and their value in result object
+    result['emotions'] = emotions
+    result['value'] = len(emotions) / (5 - len(emotions))
+
+    print(result)
+    return(result)
+
+object = {
+    'fob': 'm',
+    'lea': 'l',
+    'rea': 'l',
+    'lbd': 'l',
+    'rbd': 'l',
+    'hnc': 'l',
+    'vnc': 'l',
+    'lcw': 'l',
+    'rcw': 'l',
+    'ma': 'l'
+}
+
+size_to_emotion(object)
+
