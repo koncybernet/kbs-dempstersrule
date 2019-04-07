@@ -38,3 +38,15 @@ def test_calc_unification():
     expected3 = [BasisMeasure(['joy'], 0.72), BasisMeasure(['fear', 'sorrow', 'joy'], 0.08),
                  BasisMeasure(['anger', 'joy'], 0.1), BasisMeasure(['disgust', 'joy'], 0.08), BasisMeasure(['omega'], 0.02)]
     assert round(demp3.get_output().get_entries()[1].get_probability(), 5) == round(expected3[1].get_probability(), 5)
+
+def test_calc_plausibility():
+    ev5 = Evidence(None, None)
+    ev5.add_entry(BasisMeasure(['anger', 'joy'], 0.5))
+    ev5.add_entry(BasisMeasure(['disgust', 'joy'], 0.4))
+    ev5.add_entry(BasisMeasure(['omega'], 0.1))
+    ev6 = Evidence(None, None)
+    ev6.add_entry(BasisMeasure(['fear', 'sorrow', 'joy'], 0.8))
+    ev6.add_entry(BasisMeasure(['omega'], 0.2))
+    demp3 = DempsterRule(ev6, ev5)
+    expected = [[], [], []]
+    assert all(demp3.cal_plausibility()) == all()
