@@ -34,11 +34,17 @@ class DempsterRule:
                         if a in x.get_values():
                             valout.append(a)
                     if valout == []:
-                        # check if existing and if exists already just calculate new prob
-                        self.evout.add_entry(BasisMeasure(['empty'], prob))
+                        for c in self.evout.get_entries():
+                            if c.get_values() == ['empty']:
+                                c.set_probability(c.get_probability + prob)
+                            else:
+                                self.evout.add_entry(BasisMeasure(['empty'], prob))
                     else:
-                        # check if existing and if exists already just calculate new prob
-                        self.evout.add_entry(BasisMeasure(valout, prob))
+                        for c in self.evout.get_entries():
+                            if set(valout) == set(c.get_values()):
+                                c.set_probability(c.get_probability + prob)
+                            else:
+                                self.evout.add_entry(BasisMeasure(valout, prob))
 
         probofempty = 0
         for ind, m in enumerate(self.evout.get_entries()):
