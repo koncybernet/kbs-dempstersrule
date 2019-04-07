@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13f3052c-7b36-4b7b-8bf7-5167821e4cbf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DempsterRule.py" afterPath="$PROJECT_DIR$/DempsterRule.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/TestDempstersRule.py" afterPath="$PROJECT_DIR$/tests/TestDempstersRule.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DempsterRule.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DempsterRule.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DempsterRule.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="764">
@@ -53,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestDempstersRule.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TestDempstersRule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/TestDempstersRule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="764">
-              <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+            <state relative-caret-position="698">
+              <caret line="48" column="47" lean-forward="true" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -124,8 +123,8 @@
         <option value="$PROJECT_DIR$/Evidence.py" />
         <option value="$PROJECT_DIR$/tests/.gitignore" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/tests/TestDempstersRule.py" />
         <option value="$PROJECT_DIR$/DempsterRule.py" />
+        <option value="$PROJECT_DIR$/tests/TestDempstersRule.py" />
       </list>
     </option>
   </component>
@@ -925,22 +924,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/TestDempstersRule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DempsterRule.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="764">
           <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/TestDempstersRule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="48" column="47" lean-forward="true" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>

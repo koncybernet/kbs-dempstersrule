@@ -48,5 +48,5 @@ def test_calc_plausibility():
     ev6.add_entry(BasisMeasure(['fear', 'sorrow', 'joy'], 0.8))
     ev6.add_entry(BasisMeasure(['omega'], 0.2))
     demp3 = DempsterRule(ev6, ev5)
-    expected = [[], [], []]
-    assert all(demp3.cal_plausibility()) == all()
+    expected3 = [['joy', 0.98], ['fear', 0.08], ['sorrow', 0.08], ['anger', 0.1], ['disgust', 0.08]]
+    assert all(demp3.cal_plausibility()) == all(expected3)
