@@ -14,4 +14,4 @@ def test_emptyconstructor():
 # TODO test constructing of entries with other way
 
 
-# when done run py.test TestBasisMeasure.py
+# when done run py.test TestEvidence.py
