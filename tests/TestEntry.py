@@ -1,4 +1,4 @@
-from Entry import Entry
+from BasisMeasure import Entry
 
 valuesreg = [2, 3, 4]
 valuesempty = []
