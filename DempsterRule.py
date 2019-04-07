@@ -11,40 +11,45 @@ class DempsterRule:
             for y in self.ev2.get_entries():
                 prob = float(x.get_probability()) * float(y.get_probability())
                 if x.get_values() == ['omega'] and y.get_values() != ['omega']:
+                    exists = False
                     for c in self.evout.get_entries():
                         if set(y.get_values()) == set(c.get_values()):
-                            c.set_probability(c.get_probability + prob)
-                        else:
-                            self.evout.add_entry(BasisMeasure(y.get_values(), prob))
+                            c.set_probability(c.get_probability() + prob)
+                            exists = True
+                    if not exists:
+                        self.evout.add_entry(BasisMeasure(y.get_values(), prob))
                 elif y.get_values() == ['omega'] and x.get_values() != ['omega']:
+                    exists = False
                     for c in self.evout.get_entries():
                         if set(x.get_values()) == set(c.get_values()):
-                            c.set_probability(c.get_probability + prob)
-                        else:
-                            self.evout.add_entry(BasisMeasure(y.get_values(), prob))
+                            c.set_probability(c.get_probability() + prob)
+                            exists = True
+                    if not exists:
+                        self.evout.add_entry(BasisMeasure(y.get_values(), prob))
                 elif y.get_values() == ['omega'] and x.get_values() == ['omega']:
-                    for c in self.evout.get_entries():
-                        if c.get_values() == ['omega']:
-                            c.set_probability(c.get_probability + prob)
-                        else:
-                            self.evout.add_entry(BasisMeasure(['omega'], prob))
+                    # no backlooking comparison needed since there is always just one omega output field
+                    self.evout.add_entry(BasisMeasure(['omega'], prob))
                 else:
                     valout = []
                     for a in y.get_values():
                         if a in x.get_values():
                             valout.append(a)
                     if valout == []:
+                        exists = False
                         for c in self.evout.get_entries():
                             if c.get_values() == ['empty']:
-                                c.set_probability(c.get_probability + prob)
-                            else:
-                                self.evout.add_entry(BasisMeasure(['empty'], prob))
+                                c.set_probability(c.get_probability() + prob)
+                                exists = True
+                        if not exists:
+                            self.evout.add_entry(BasisMeasure(['empty'], prob))
                     else:
+                        exists = False
                         for c in self.evout.get_entries():
                             if set(valout) == set(c.get_values()):
-                                c.set_probability(c.get_probability + prob)
-                            else:
-                                self.evout.add_entry(BasisMeasure(valout, prob))
+                                c.set_probability(c.get_probability() + prob)
+                                exists = True
+                        if not exists:
+                            self.evout.add_entry(BasisMeasure(valout, prob))
 
         probofempty = 0
         for ind, m in enumerate(self.evout.get_entries()):
