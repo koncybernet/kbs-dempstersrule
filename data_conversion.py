@@ -1,4 +1,4 @@
-# takes an object with a mapping of trait -> size and returns all possible emotions for that trait and their value
+# takes an object with a mapping of trait -> size and returns all possible emotions for that trait and their confidence
 def size_to_emotion(size_object):
     # table to look up traits
     table = {
@@ -58,7 +58,7 @@ def size_to_emotion(size_object):
     result = {}
 
     # sets cannot contain duplicates as opposed to lists
-    # store all valid emotions in set
+    # store all valid emotions and their confidence in set
     for trait in size_object:
         emotions = set(())
         emotions.update(table[trait][size_object[trait]])
