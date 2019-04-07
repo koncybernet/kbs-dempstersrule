@@ -11,30 +11,34 @@ class DempsterRule:
             for y in self.ev2.get_entries():
                 prob = float(x.get_probability()) * float(y.get_probability())
                 if x.get_values() == ['omega'] and y.get_values() != ['omega']:
-                    self.evout.add_entry(BasisMeasure(y.get_values(), prob))
+                    for c in self.evout.get_entries():
+                        if set(y.get_values()) == set(c.get_values()):
+                            c.set_probability(c.get_probability + prob)
+                        else:
+                            self.evout.add_entry(BasisMeasure(y.get_values(), prob))
                 elif y.get_values() == ['omega'] and x.get_values() != ['omega']:
-                    self.evout.add_entry(BasisMeasure(x.get_values(), prob))
+                    for c in self.evout.get_entries():
+                        if set(x.get_values()) == set(c.get_values()):
+                            c.set_probability(c.get_probability + prob)
+                        else:
+                            self.evout.add_entry(BasisMeasure(y.get_values(), prob))
                 elif y.get_values() == ['omega'] and x.get_values() == ['omega']:
-                    self.evout.add_entry(BasisMeasure(['omega'], prob))
+                    for c in self.evout.get_entries():
+                        if c.get_values() == ['omega']:
+                            c.set_probability(c.get_probability + prob)
+                        else:
+                            self.evout.add_entry(BasisMeasure(['omega'], prob))
                 else:
                     valout = []
                     for a in y.get_values():
                         if a in x.get_values():
                             valout.append(a)
                     if valout == []:
+                        # check if existing and if exists already just calculate new prob
                         self.evout.add_entry(BasisMeasure(['empty'], prob))
                     else:
+                        # check if existing and if exists already just calculate new prob
                         self.evout.add_entry(BasisMeasure(valout, prob))
-
-        # for ind, k in enumerate(self.evout.get_entries()):
-        #     for j in range(k+1, len(self.evout.get_entries())):
-        #         if set(self.evout.get_entries()[k]) == set(self.evout.get_entries()[j]):
-        #             # zusammenrechnen und auf k.entry setzen
-        #             # delete j.entry
-        #             # j--
-        #
-        #
-        # if set(x) == set(y):
 
         probofempty = 0
         for ind, m in enumerate(self.evout.get_entries()):

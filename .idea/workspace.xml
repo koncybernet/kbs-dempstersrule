@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="13f3052c-7b36-4b7b-8bf7-5167821e4cbf" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DempsterRule.py" afterPath="$PROJECT_DIR$/DempsterRule.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Evidence.py" afterPath="$PROJECT_DIR$/Evidence.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/TestDempstersRule.py" afterPath="$PROJECT_DIR$/tests/TestDempstersRule.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,18 +33,18 @@
       <file leaf-file-name="BasisMeasure.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BasisMeasure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="27" lean-forward="true" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+            <state relative-caret-position="44">
+              <caret line="2" column="28" lean-forward="true" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DempsterRule.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DempsterRule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DempsterRule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="42" column="41" lean-forward="false" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+            <state relative-caret-position="676">
+              <caret line="38" column="25" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -54,7 +52,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestDempstersRule.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestDempstersRule.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/TestDempstersRule.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="616">
@@ -113,8 +111,8 @@
         <option value="$PROJECT_DIR$/tests/TestBasisMeasure.py" />
         <option value="$PROJECT_DIR$/BasisMeasure.py" />
         <option value="$PROJECT_DIR$/Evidence.py" />
-        <option value="$PROJECT_DIR$/DempsterRule.py" />
         <option value="$PROJECT_DIR$/tests/TestDempstersRule.py" />
+        <option value="$PROJECT_DIR$/DempsterRule.py" />
       </list>
     </option>
   </component>
@@ -826,29 +824,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BasisMeasure.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="27" lean-forward="true" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Evidence.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DempsterRule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="42" column="41" lean-forward="false" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -858,6 +838,24 @@
           <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BasisMeasure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="28" lean-forward="true" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DempsterRule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="676">
+          <caret line="38" column="25" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
