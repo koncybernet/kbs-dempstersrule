@@ -36,7 +36,7 @@ class DempsterRule:
                             c.set_probability(c.get_probability() + prob)
                             exists = True
                     if not exists:
-                        self.evout.add_entry(BasisMeasure(y.get_values(), prob))
+                        self.evout.add_entry(BasisMeasure(x.get_values(), prob))
                 # case if both of the input values are omega
                 elif y.get_values() == ['omega'] and x.get_values() == ['omega']:
                     # no backlooking comparison needed since there is always just one omega output field
