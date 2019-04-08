@@ -11,14 +11,14 @@ file_name = 'C://Users//IBM_ADMIN//Documents//Uni//WBS//kbs-dempstersrule//datas
 # BASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dataset', file_name)
 # TODO: read input file
 file = open(file_name)
-file.readline()
+# get traits featured in file
+traits = file.readline().strip().split(';')
 
 # TODO: create for loop for every line
 # for line in file:
 line = file.readline()
 # TODO: data conversion
-sizes = data_conversion.number_to_size(line.strip().split(';'))
-emotions = data_conversion.size_to_emotion(sizes)
+emotions = data_conversion.complete_conversion(traits, line.strip().split(';'))
 # print(emotions)
 
 # TODO: create Evidence for every feature and store in list, implement Evidence constructor
