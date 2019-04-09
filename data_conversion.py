@@ -190,6 +190,6 @@ def size_to_emotion(size_object):
         if emotions != []: 
             result[trait] = {}        
             result[trait]['emotions'] = emotions
-            result[trait]['value'] = round(len(emotions) / (5 - len(emotions)), 5)
+            result[trait]['value'] = round(len(emotions) / 5, 5)
 
     return(result)
