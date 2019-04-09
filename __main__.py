@@ -7,19 +7,19 @@ from DempsterRule import DempsterRule
 
 # TODO: prompt for input file
 # file_name = input('Please enter the file name: ')
-file_name = 'emo_muster_2_1.csv'
-BASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dataset', file_name)
+file_name = 'C://Users//casch//Documents//Uni//WBS//kbs-dempstersrule//dataset//emo_muster_2_1.csv'
+# BASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dataset', file_name)
 # TODO: read input file
-file = open(BASE_PATH)
-file.readline()
+file = open(file_name)
+# get traits featured in file
+traits = file.readline().strip().split(';')
 
 # TODO: create for loop for every line
 for line in file:
-    line = file.readline()
+    # line = file.readline()
     # TODO: data conversion
-    sizes = data_conversion.number_to_size(line.strip().split(';'))
-    emotions = data_conversion.size_to_emotion(sizes)
-    print(emotions)
+    emotions = data_conversion.complete_conversion(traits, line.strip().split(';'))
+    # print(emotions)
 
     # TODO: create Evidence for every feature and store in list, implement Evidence constructor
     base_evidences = []
@@ -38,7 +38,7 @@ for line in file:
     emotion_list = final.cal_plausibility()
     belief_list = final.cal_belief()
     print(emotion_list)
-    print(belief_list)
+    # print(belief_list)
 
     # TODO: get highest plausability = output
     # [TODO: belief]
