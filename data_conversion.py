@@ -12,7 +12,6 @@ def data_cleansing(traits, line):
             confidence[trait] = get_confidence(trait, normalized)
 
     emotions = size_to_emotion(confidence)
-    # print(emotions)
     return emotions        
 
 # takes the height of the current frame, the trait value and the trait
@@ -151,11 +150,7 @@ def get_confidence(trait, value):
         confidence = {
             'value': conf_s,
             'size': 's'
-        } 
-
-    if trait == 'lcw':
-        print(confidence)
-        print(value)
+        }
     return confidence
 
 
