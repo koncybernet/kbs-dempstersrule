@@ -1,7 +1,7 @@
 import os
 import data_conversion
 import util
-from Evidence import Evidence
+from BasisMeasure import Evidence
 from DempsterRule import DempsterRule
 
 

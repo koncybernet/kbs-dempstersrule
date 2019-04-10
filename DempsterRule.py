@@ -1,8 +1,8 @@
 # class to implement the functionality of the Dempster Rule, accumulating two BasisMeasures into
 # one output Basis Measure
 
-from Evidence import Evidence
-from BasisMeasure import BasisMeasure
+from BasisMeasure import Evidence
+from Entry import Entry
 
 class DempsterRule:
     def __init__(self, ev1, ev2):
@@ -18,69 +18,69 @@ class DempsterRule:
         for x in self.ev1.get_entries():
             for y in self.ev2.get_entries():
                 # calculate output-probability beforehand because it is needed in every case
-                prob = float(x.get_probability()) * float(y.get_probability())
+                prob = float(x.get_confidence()) * float(y.get_confidence())
                 # case 1 if one of the two inputs is omega
-                if x.get_values() == ['omega'] and y.get_values() != ['omega']:
+                if x.get_focalset() == ['omega'] and y.get_focalset() != ['omega']:
                     exists = False
                     for c in self.evout.get_entries():
-                        if set(y.get_values()) == set(c.get_values()):
-                            c.set_probability(c.get_probability() + prob)
+                        if set(y.get_focalset()) == set(c.get_focalset()):
+                            c.set_confidence(c.get_confidence() + prob)
                             exists = True
                     if not exists:
-                        self.evout.add_entry(BasisMeasure(y.get_values(), prob))
+                        self.evout.add_entry(Entry(y.get_focalset(), prob))
                 # case 2 if one of the two inputs is omega
-                elif y.get_values() == ['omega'] and x.get_values() != ['omega']:
+                elif y.get_focalset() == ['omega'] and x.get_focalset() != ['omega']:
                     exists = False
                     for c in self.evout.get_entries():
-                        if set(x.get_values()) == set(c.get_values()):
-                            c.set_probability(c.get_probability() + prob)
+                        if set(x.get_focalset()) == set(c.get_focalset()):
+                            c.set_confidence(c.get_confidence() + prob)
                             exists = True
                     if not exists:
-                        self.evout.add_entry(BasisMeasure(x.get_values(), prob))
+                        self.evout.add_entry(Entry(x.get_focalset(), prob))
                 # case if both of the input values are omega
-                elif y.get_values() == ['omega'] and x.get_values() == ['omega']:
+                elif y.get_focalset() == ['omega'] and x.get_focalset() == ['omega']:
                     # no backlooking comparison needed since there is always just one omega output field
-                    self.evout.add_entry(BasisMeasure(['omega'], prob))
+                    self.evout.add_entry(Entry(['omega'], prob))
                 #case if no input is omega, first check if the two inputs have emotions in common
                 else:
                     valout = []
-                    for a in y.get_values():
-                        if a in x.get_values():
+                    for a in y.get_focalset():
+                        if a in x.get_focalset():
                             valout.append(a)
                     # if the inputs have no emotions in common, create 'empty' BasisMeasure
                     if valout == []:
                         exists = False
                         for c in self.evout.get_entries():
-                            if c.get_values() == ['empty']:
-                                c.set_probability(c.get_probability() + prob)
+                            if c.get_focalset() == ['empty']:
+                                c.set_confidence(c.get_confidence() + prob)
                                 exists = True
                         if not exists:
-                            self.evout.add_entry(BasisMeasure(['empty'], prob))
+                            self.evout.add_entry(Entry(['empty'], prob))
                     # is the inputs have emotions in common, create BasisMeasure with shared emotions
                     else:
                         exists = False
                         for c in self.evout.get_entries():
-                            if set(valout) == set(c.get_values()):
-                                c.set_probability(c.get_probability() + prob)
+                            if set(valout) == set(c.get_focalset()):
+                                c.set_confidence(c.get_confidence() + prob)
                                 exists = True
                         if not exists:
-                            self.evout.add_entry(BasisMeasure(valout, prob))
+                            self.evout.add_entry(Entry(valout, prob))
 
         # check if there is an empty element in the output. if so, determine the probability of the empty
         # element and with the formula 1/(1-k) recalculate the remaining probabilities
         probofempty = 0
         for ind, m in enumerate(self.evout.get_entries()):
-            if m.get_values() == ['empty']:
-                probofempty += m.get_probability()
+            if m.get_focalset() == ['empty']:
+                probofempty += m.get_confidence()
                 self.evout.delete_entry(m)
         factor = 1 / (1 - probofempty)
         for n in self.evout.get_entries():
-            n.set_probability(n.get_probability()*factor)
+            n.set_confidence(n.get_confidence() * factor)
 
         #test if sum of all probabilites is still 1 as a check
         sum = 0
         for o in self.evout.get_entries():
-            sum += o.get_probability()
+            sum += o.get_confidence()
         if abs(sum - 1)>0.0000000001:
             raise ValueError('the corrected probabilites do not equal one anymore, something is wrong ' + str(sum))
 
@@ -93,7 +93,7 @@ class DempsterRule:
         all_emotions = []
         output = []
         for x in self.evout.get_entries():
-            for y in x.get_values():
+            for y in x.get_focalset():
                 if y not in all_emotions:
                     all_emotions.append(y)
         all_emotions.remove('omega')
@@ -101,6 +101,6 @@ class DempsterRule:
             belief = 0
             for f in self.evout.get_entries():
                 if [e] == f:
-                    belief += f.get_probability()
+                    belief += f.get_confidence()
             output.append([e, belief])
         return output
