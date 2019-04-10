@@ -42,15 +42,3 @@ def test_calc_unification():
     expected = [Entry(['joy'], 0.72), Entry(['fear', 'sorrow', 'joy'], 0.08),
                 Entry(['anger', 'joy'], 0.1), Entry(['disgust', 'joy'], 0.08), Entry(['omega'], 0.02)]
     assert round(demp3.get_output().get_entries()[1].get_confidence(), 5) == round(expected[1].get_confidence(), 5)
-
-# test if plausibility is calculated correctly
-def test_calc_plausibility():
-    expected = [['joy', 0.98], ['fear', 0.08], ['sorrow', 0.08], ['anger', 0.1], ['disgust', 0.08]]
-    # expected with omega:
-    # expected3 = [['joy', 1], ['fear', 0.1], ['sorrow', 0.1], ['anger', 0.12], ['disgust', 0.1]]
-    assert all(demp3.cal_plausibility()) == all(expected)
-
-# test if belief is calculated correctly
-def test_calc_belief():
-    expected = [['joy', 0.72], ['fear', 0], ['sorrow', 0], ['anger', 0], ['disgust', 0]]
-    assert all(demp3.cal_belief()) == all(expected)
