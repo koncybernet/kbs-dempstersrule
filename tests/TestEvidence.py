@@ -1,16 +1,16 @@
-from BasisMeasure import Evidence
+from BasisMeasure import BasisMeasure
 
 entry = 'test'
 
 # test if entries are appended correctly
 def test_addandgetentry():
-    bm = Evidence(None, None)
+    bm = BasisMeasure(None, None)
     bm.add_entry(entry)
     assert (bm.get_entries() == ['test'])
 
 # test if the empty constructor logic is working
 def test_emptyconstructor():
-    assert (Evidence(None, None).get_entries() == [])
+    assert (BasisMeasure(None, None).get_entries() == [])
 
 # test if the construction with values from table works accordingly
 def test_tableconstructor():

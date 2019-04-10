@@ -2,7 +2,7 @@
 
 from Entry import Entry
 
-class Evidence:
+class BasisMeasure:
     # the constructor has two options, either it is instantiated empty, being the case if the Evidence is the
     # accumulation of two prior Evidences, or with feature and size, which will be mapped in the seperate Excel sheet. This
     # is the case when in the first step all columns from the analysis-data are read and converted to an Evidence.
@@ -22,7 +22,6 @@ class Evidence:
         self.entrylist.remove(index)
 
     def cal_plausibility(self):
-        # TODO wird Omega miteinberechnet?
         all_emotions = []
         output = []
         for x in self.entrylist:
@@ -34,12 +33,11 @@ class Evidence:
             plausibility = 0
             for f in self.entrylist:
                 for g in f.get_focalset():
-                    if e in g:
+                    if e in g or g == 'omega':
                         plausibility += f.get_confidence()
             output.append([e, plausibility])
         return output
 
-    # method to calculate the belief for all emotions present
     def cal_belief(self):
         all_emotions = []
         output = []

@@ -1,7 +1,7 @@
 import os
 import data_conversion
 import util
-from BasisMeasure import Evidence
+from BasisMeasure import BasisMeasure
 from DempsterRule import DempsterRule
 
 
@@ -23,17 +23,17 @@ for ind, line in enumerate(file):
     # print(emotions)
 
     # TODO: create Evidence for every feature and store in list, implement Evidence constructor
-    base_evidences = []
+    base_bms = []
     for feature in emotions:
-        base_evidences.append(Evidence(emotions[feature]['emotions'], emotions[feature]['value']))
+        base_bms.append(BasisMeasure(emotions[feature]['emotions'], emotions[feature]['value']))
 
     # TODO: accumulate by using helper variable ('final')
-    if len(base_evidences) < 2:
+    if len(base_bms) < 2:
         raise ValueError('there are not enough features to do a proper anaylsis.')
-    final = DempsterRule(base_evidences[0], base_evidences[1]).get_output()
-    if len(base_evidences) > 2:
-        for x in range(2, len(base_evidences)):
-            final = DempsterRule(final, base_evidences[x]).get_output()
+    final = DempsterRule(base_bms[0], base_bms[1]).get_output()
+    if len(base_bms) > 2:
+        for x in range(2, len(base_bms)):
+            final = DempsterRule(final, base_bms[x]).get_output()
 
     # TODO: final.get_plausability()
     emotion_list = final.cal_plausibility()

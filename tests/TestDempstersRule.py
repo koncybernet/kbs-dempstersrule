@@ -1,22 +1,22 @@
 from DempsterRule import DempsterRule
-from BasisMeasure import Evidence
+from BasisMeasure import BasisMeasure
 from Entry import Entry
 
-ev5 = Evidence(None, None)
+ev5 = BasisMeasure(None, None)
 ev5.add_entry(Entry(['anger', 'joy'], 0.5))
 ev5.add_entry(Entry(['disgust', 'joy'], 0.4))
 ev5.add_entry(Entry(['omega'], 0.1))
-ev6 = Evidence(None, None)
+ev6 = BasisMeasure(None, None)
 ev6.add_entry(Entry(['fear', 'sorrow', 'joy'], 0.8))
 ev6.add_entry(Entry(['omega'], 0.2))
 demp3 = DempsterRule(ev6, ev5)
 
 # test if output evidence is calculated correctly
 def test_calc_demp():
-    ev1 = Evidence(None, None)
+    ev1 = BasisMeasure(None, None)
     ev1.add_entry(Entry(['anger', 'joy'], 0.7))
     ev1.add_entry(Entry(['omega'], 0.3))
-    ev2 = Evidence(None, None)
+    ev2 = BasisMeasure(None, None)
     ev2.add_entry(Entry(['sadness', 'joy'], 0.4))
     ev2.add_entry(Entry(['omega'], 0.6))
     demp1 = DempsterRule(ev1, ev2)
@@ -26,10 +26,10 @@ def test_calc_demp():
 
 # test if refactoring is done when an output basis measure is empty
 def test_calc_empty():
-    ev3 = Evidence(None, None)
+    ev3 = BasisMeasure(None, None)
     ev3.add_entry(Entry(['joy'], 0.7))
     ev3.add_entry(Entry(['omega'], 0.3))
-    ev4 = Evidence(None, None)
+    ev4 = BasisMeasure(None, None)
     ev4.add_entry(Entry(['fear'], 0.6))
     ev4.add_entry(Entry(['omega'], 0.4))
     demp2 = DempsterRule(ev4, ev3)
