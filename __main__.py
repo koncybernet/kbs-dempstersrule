@@ -6,11 +6,9 @@ from DempsterRule import DempsterRule
 
 
 # TODO: prompt for input file
-file_name = input('Please enter the file name: ')
-# file_name = 'C://Users//casch//Documents//Uni//WBS//kbs-dempstersrule//dataset//emo_muster_2_3.csv'
-BASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dataset', file_name)
-# TODO: read input file
-file = open(BASE_PATH)
+file_path = input('Please enter the absolute path of the file: ')
+file = open(file_path)
+#C:/Users/IBM_ADMIN/Desktop/GitHub\\dataset\\emo_muster_2_3.csv
 # get traits featured in file
 traits = file.readline().strip().split(';')
 
