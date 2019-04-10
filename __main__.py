@@ -3,7 +3,6 @@ import data_conversion
 import util
 from Evidence import Evidence
 from DempsterRule import DempsterRule
-# for missing feature: feature not in object -> no Evidence for it
 
 
 # TODO: prompt for input file
@@ -64,11 +63,3 @@ for ind, i in enumerate(output):
     print('Frame #' + str(ind + 1))
     print(i)
     print('\n')
-
-
-            
-    # print(belief_list)
-
-    # TODO: get highest plausability = output
-    # [TODO: belief]
-    # TODO: write emotion and plausibility for frame into file/ output
