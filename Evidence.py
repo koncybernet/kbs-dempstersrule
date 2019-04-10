@@ -51,7 +51,7 @@ class Evidence:
         for e in all_emotions:
             belief = 0
             for f in self.entrylist:
-                if [e] == f:
+                if [e] == f.get_values():
                     belief += f.get_probability()
             output.append([e, belief])
         return output
