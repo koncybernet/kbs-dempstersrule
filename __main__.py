@@ -15,7 +15,7 @@ output = []
 # loop through every row
 for ind, line in enumerate(file):
     # data conversion
-    emotions = data_conversion.complete_conversion(traits, line.strip().split(';'))
+    emotions = data_conversion.data_cleansing(traits, line.strip().split(';'))
 
     # create Evidence for every feature and store in list
     base_bms = []
@@ -41,7 +41,7 @@ for ind, line in enumerate(file):
             current_high = [plausibility, emotion]
     output.append({
         'emotion': current_high[1],
-        'plausibility': current_high[0],
+        'plausibility': round(current_high[0], 2),
         'belief': util.get_belief_from_list(current_high[1], belief_list)
     })
 

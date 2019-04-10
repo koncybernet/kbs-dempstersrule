@@ -1,41 +1,19 @@
-# takes a list of facial features (traits) found in file and the file itself and returns an object containing
-# subsets of emotions and the confidence for each subset
-def complete_conversion(traits, line):
-    sizes = number_to_size(traits, line)
-    emotions = size_to_emotion(sizes)
-
-    return emotions
-
-
-# takes a list of traits and one line of numbers (extracted from csv) and returns an object with a mapping of trait -> size
-def number_to_size(traits, numbers):
-
-    normalized_numbers = {}
-    height_of_frame = numbers[traits.index('ylow')]
+def data_cleansing(traits, line):
+    # normalized_numbers = {}
+    confidence = {}
+    height_of_frame = line[traits.index('ylow')]
 
     # for all values in line of numbers lookup trait, normalize its number and store it in object
     for trait in traits:
-        if trait_is_relevant(trait) == True and numbers[traits.index(trait)] != '':
-            normalized_numbers[trait] = normalize_number(height_of_frame, numbers[traits.index(trait)], trait)
+        if trait_is_relevant(trait) == True and line[traits.index(trait)] != '':
+            # normalize number
+            normalized = normalize_number(height_of_frame, line[traits.index(trait)], trait)
+            # get confidence and size
+            confidence[trait] = get_confidence(trait, normalized)
 
-
-    result = {}
-    # for every trait, lookup its size and add it to the result object
-    for trait in normalized_numbers:
-        result[trait] = number_to_size_table_lookup(trait, normalized_numbers[trait])
-
-    return(result)
-
-
-# takes a trait and returnsa boolean stating wether or not the trait is a facial feature
-def trait_is_relevant(trait):
-    relevant_traits = ['fob', 'lea', 'lbd', 'rea', 'rbd', 'hnc', 'vnc', 'lcw', 'rcw', 'ma']
-
-    if trait in relevant_traits:
-        return True
-    else:
-        return False
-
+    emotions = size_to_emotion(confidence)
+    # print(emotions)
+    return emotions        
 
 # takes the height of the current frame, the trait value and the trait
 # returns a normalized number
@@ -61,68 +39,133 @@ def normalize_number(y, number, trait):
     return(normalized_number)
 
 
-# takes a trait and its value and returns the size
-def number_to_size_table_lookup(trait, value):
+def get_size_limits(trait):
     size_table = {
         'fob': {
-            's': [0, 100],
-            'm': [100, 200],
-            'l': [200,]
+            's': [0, 107],
+            'm': [59, 221],
+            'l': [59, 300]
         },
         'lea': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [3, 6],
+            'l': [6, 10]
         },
         'lbd': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [3, 6],
+            'l': [6, 10]
         },
         'rea': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [3, 6],
+            'l': [6, 10]
         },
         'rbd': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [3, 6],
+            'l': [6, 10]
         },
         'hnc': {
             's': [0, 8],
-            'm': [8, 18],
-            'l': [18,]
+            'm': [5, 19],
+            'l': [12, 23]
         },
         'vnc': {
             's': [0, 8],
-            'm': [8, 19],
-            'l': [19,]
+            'm': [5, 18],
+            'l': [12, 23]
         },
         'lcw': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [2, 7],
+            'l': [4, 10]
         },
         'rcw': {
-            's': [0, 3],
-            'm': [3, 7],
-            'l': [7,]
+            's': [0, 4],
+            'm': [2, 7],
+            'l': [4, 10]
         },
         'ma': {
             's': [0, 7],
-            'm': [7, 14],
-            'l': [14]
+            'm': [4, 14],
+            'l': [8, 17]
         }
     }
 
-    # check number for size and return it
-    if size_table[trait]['s'][0] <= value and size_table[trait]['s'][1] > value:
-        return('s')
-    elif size_table[trait]['m'][0] <= value and size_table[trait]['m'][1] > value:
-        return('m')
+    return size_table[trait]
+
+# takes a trait and returnsa boolean stating wether or not the trait is a facial feature
+def trait_is_relevant(trait):
+    relevant_traits = ['fob', 'lea', 'lbd', 'rea', 'rbd', 'hnc', 'vnc', 'lcw', 'rcw', 'ma']
+
+    if trait in relevant_traits:
+        return True
     else:
-        return('l') 
+        return False
+
+
+def get_confidence(trait, value):
+    size_limits = get_size_limits(trait)
+    confidence = {}
+    conf_s = 0
+    conf_m = 0
+    conf_l = 0
+
+    if (value >= size_limits['s'][0]) or (value <= size_limits['s'][1]):
+        s_p1 = [size_limits['s'][0], 1]
+        s_p2 = [size_limits['s'][1], 0]
+        conf_s = round(linear_function_modelling(s_p1, s_p2, value), 5)
+
+   
+    if (value >= size_limits['m'][0]) or (value <= size_limits['m'][1]):
+        middle_ground = (size_limits['m'][0] + size_limits['m'][1]) / 2
+        conf_m1 = 0
+        conf_m2 = 0
+        if value <= middle_ground:
+            m1_p1 = [size_limits['m'][0], 0]
+            m1_p2 = [middle_ground, 1]
+            conf_m1 = round(linear_function_modelling(m1_p1, m1_p2, value), 5)
+        else:
+            m2_p1 = [middle_ground, 1]
+            m2_p2 = [size_limits['m'][1], 0]
+            conf_m2 = round(linear_function_modelling(m2_p1, m2_p2, value), 5)
+
+        conf_m = conf_m1 if conf_m1 > conf_m2 else conf_m2
+
+    if (value >= size_limits['l'][0]) or (value <= size_limits['l'][1]):
+        l_p1 = [size_limits['l'][0], 0]
+        l_p2 = [size_limits['l'][1], 1]
+        conf_l = round(linear_function_modelling(l_p1, l_p2, value), 5)
+    if conf_l > conf_m and conf_l > conf_s:
+        confidence = {
+            'value': conf_l,
+            'size': 'l'
+        }
+    elif conf_m > conf_l and conf_m > conf_s:
+        confidence = {
+            'value': conf_m,
+            'size': 'm'
+        }
+    elif conf_s > conf_l and conf_s >= conf_m:
+        confidence = {
+            'value': conf_s,
+            'size': 's'
+        } 
+
+    if trait == 'lcw':
+        print(confidence)
+        print(value)
+    return confidence
+
+
+def linear_function_modelling(p1, p2, x):
+    
+    m = (p1[1] - p2[1]) / (p1[0] - p2[0])
+    k = p1[1] - (p1[0] * m)
+    y = m * x + k
+    
+    return y
 
 
 # takes an object with a mapping of trait -> size and returns all possible emotions for that trait and their confidence
@@ -165,12 +208,12 @@ def size_to_emotion(size_object):
             'l': []
         },
         'lcw': {
-            's': ['sorrow'],
+            's': ['sorrow', 'neutral'],
             'm': ['sorrow', 'joy', 'disgust'],
             'l': ['joy']
         },
         'rcw': {
-            's': ['sorrow'],
+            's': ['sorrow', 'neutral'],
             'm': ['sorrow', 'joy', 'disgust'],
             'l': ['joy']
         },
@@ -186,10 +229,13 @@ def size_to_emotion(size_object):
 
     # store all valid emotions and their confidence in set
     for trait in size_object:
-        emotions = table[trait][size_object[trait]]
+        size = size_object[trait]['size']
+        emotions = table[trait][size]
         if emotions != []: 
-            result[trait] = {}        
-            result[trait]['emotions'] = emotions
-            result[trait]['value'] = round(len(emotions) / 5, 5)
+            result[trait] = {
+                'emotions': emotions,
+                'value': size_object[trait]['value']
+            }
 
-    return(result)
+    if result != {}:
+        return(result)
